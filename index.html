@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ServiceHub - Your All-in-One Platform</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/navbar.css">
+    <link rel="stylesheet" href="css/chatbot.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="nav-brand">ServiceHub</div>
+        <button class="nav-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-menu">
+            <li><a href="#home"><i class="fas fa-home"></i> Home</a></li>
+            <li><a href="#profiles"><i class="fas fa-users"></i> Profiles</a></li>
+            <li><a href="#jobs"><i class="fas fa-briefcase"></i> Jobs</a></li>
+            <li><a href="#learning"><i class="fas fa-book"></i> Learning</a></li>
+            <li><a href="#community"><i class="fas fa-users"></i> Community</a></li>
+            <li><a href="#bikes"><i class="fas fa-bicycle"></i> Bike Sharing</a></li>
+            <li><a href="#news"><i class="fas fa-newspaper"></i> Tech News</a></li>
+            <li><a href="#chat"><i class="fas fa-comments"></i> Chat</a></li>
+            <li><a href="#content"><i class="fas fa-images"></i> Content</a></li>
+            <li><a href="#tasks"><i class="fas fa-tasks"></i> Tasks</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Welcome to ServiceHub</h1>
+            <p>Your all-in-one platform for jobs, learning, community, and more</p>
+            <button class="cta-button">Get Started <i class="fas fa-arrow-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Features Grid -->
+    <section id="features" class="features">
+        <h2>Everything You Need</h2>
+        <p>Discover all the features that make ServiceHub unique</p>
+        <div class="features-grid"></div>
+    </section>
+
+    <!-- Sections for each feature -->
+    <section id="jobs" class="jobs-section section hidden">
+        <h2>Job Opportunities</h2>
+        <div class="jobs-grid"></div>
+    </section>
+
+    <section id="learning" class="learning-section section hidden">
+        <h2>Learning Center</h2>
+        <div class="courses-grid"></div>
+    </section>
+
+    <section id="news" class="news-section section hidden">
+        <h2>Daily Tech News</h2>
+        <div class="news-grid"></div>
+    </section>
+
+    <!-- Chatbot -->
+    <div class="chatbot">
+        <button class="chatbot-toggle">
+            <i class="fas fa-comments"></i>
+        </button>
+        <div class="chatbot-container hidden">
+            <div class="chatbot-header">
+                <h3>Chat Support</h3>
+                <button class="close-chat">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chat-messages"></div>
+            <div class="chat-input">
+                <input type="text" placeholder="Type your message...">
+                <button class="send-message">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+    <script src="js/navbar.js"></script>
+    <script src="js/features.js"></script>
+    <script src="js/jobs.js"></script>
+    <script src="js/learning.js"></script>
+    <script src="js/news.js"></script>
+    <script src="js/chatbot.js"></script>
+</body>
+</html>

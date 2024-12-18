@@ -59,3 +59,58 @@ function addScrollAnimation() {
         observer.observe(element);
     });
 }
+
+
+
+// news
+const redditContainer = document.getElementById("reddit-container");
+const hindustanContainer = document.getElementById("hindustan-container");
+
+// Fetch Tech News from Reddit API
+const fetchRedditTechNews = async () => {
+  const response = await fetch("https://www.reddit.com/r/technology/top.json?limit=5");
+  const data = await response.json();
+  
+  data.data.children.forEach(post => {
+    const newsItem = document.createElement("div");
+    newsItem.classList.add("news-item");
+
+    newsItem.innerHTML = `
+      <h3><a href="https://www.reddit.com${post.data.permalink}" target="_blank">${post.data.title}</a></h3>
+      <p>Posted by ${post.data.author}</p>
+      <p>${post.data.selftext.substring(0, 150)}...</p>
+    `;
+    redditContainer.appendChild(newsItem);
+  });
+};
+
+// Fetch Tech News from Hindustan Times RSS Feed
+const fetchHindustanTechNews = async () => {
+  const rssFeedUrl = "https://rss.hindustantimes.com/httech/rssfeed.xml";  // Replace with actual RSS URL
+  const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssFeedUrl)}`;
+  
+  const response = await fetch(apiUrl);
+  const data = await response.json();
+  
+  data.items.forEach(post => {
+    const newsItem = document.createElement("div");
+    newsItem.classList.add("news-item");
+
+    newsItem.innerHTML = `
+      <h3><a href="${post.link}" target="_blank">${post.title}</a></h3>
+      <p>${post.description}</p>
+    `;
+    hindustanContainer.appendChild(newsItem);
+  });
+};
+
+// Initialize Fetching Data
+const init = () => {
+  fetchRedditTechNews();
+  fetchHindustanTechNews();
+};
+
+window.onload = init;
+
+
+// jobs

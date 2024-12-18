@@ -151,3 +151,145 @@ body {
 .animate-fade-in {
     animation: fadeIn 0.5s ease-out forwards;
 }
+
+
+/* Reset */
+
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  .container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 0;
+  }
+  
+  /* Header */
+  header {
+    background-color: #222;
+    padding: 20px 0;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    color: white;
+    font-size: 2.5rem;
+    font-weight: bold;
+    letter-spacing: 2px;
+    display: inline-block;
+    margin-left: 20px;
+  }
+  
+  .theme-toggle-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 20px;
+  }
+  
+  .theme-toggle-btn:hover {
+    color: #0073e6;
+  }
+  
+  /* News Sections */
+  .news-section {
+    margin-bottom: 40px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: 600;
+  }
+  
+  .news-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 20px;
+  }
+  
+  .news-item {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    padding: 15px;
+    cursor: pointer;
+  }
+  
+  .news-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.1);
+  }
+  
+  .news-item h3 {
+    font-size: 1.25rem;
+    color: #333;
+    margin-bottom: 10px;
+  }
+  
+  .news-item p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 15px;
+  }
+  
+  .news-item a {
+    color: #0073e6;
+    font-weight: 500;
+    transition: color 0.3s ease;
+  }
+  
+  .news-item a:hover {
+    color: #005bb5;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 1024px) {
+    .news-container {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    .news-container {
+      grid-template-columns: 1fr;
+    }
+  
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    .news-item h3 {
+      font-size: 1.1rem;
+    }
+  
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    header h1 {
+      font-size: 1.8rem;
+    }
+  
+    .theme-toggle-btn {
+      font-size: 1.2rem;
+    }
+  }
+  
+
+ 
+
+  
+  

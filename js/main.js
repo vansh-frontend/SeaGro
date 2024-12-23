@@ -113,4 +113,186 @@ const init = () => {
 window.onload = init;
 
 
-// jobs
+// share
+// DOM Elements
+const uploadForm = document.getElementById("uploadForm");
+const fileInput = document.getElementById("fileInput");
+const captionInput = document.getElementById("captionInput");
+const contentGrid = document.getElementById("contentGrid");
+const modal = document.getElementById("postModal");
+const modalMedia = document.getElementById("modalMedia");
+const modalCaption = document.getElementById("modalCaption");
+const likeButton = document.getElementById("likeButton");
+const likeCount = document.getElementById("likeCount");
+const commentInput = document.getElementById("commentInput");
+const addCommentButton = document.getElementById("addCommentButton");
+const commentsSection = document.getElementById("commentsSection");
+const closeModal = document.querySelector(".close-modal");
+
+let currentPost = null;
+
+// Load posts on page load
+document.addEventListener("DOMContentLoaded", loadPosts);
+
+// Form submission
+uploadForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const file = fileInput.files[0];
+    const caption = captionInput.value;
+
+    if (file) {
+        const fileURL = URL.createObjectURL(file);
+        const post = {
+            id: Date.now(),
+            fileURL,
+            fileType: file.type,
+            caption,
+            likes: 0,
+            likedBy: [], // Tracks users who liked the post
+            comments: [],
+        };
+
+        savePost(post);
+        renderPost(post);
+
+        // Reset form
+        fileInput.value = "";
+        captionInput.value = "";
+    }
+});
+
+// Save post to localStorage
+function savePost(post) {
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+    posts.push(post);
+    localStorage.setItem("posts", JSON.stringify(posts));
+}
+
+// Load posts from localStorage
+function loadPosts() {
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+    posts.forEach((post) => renderPost(post));
+}
+
+// Render a post in the DOM
+function renderPost(post) {
+    const contentItem = document.createElement("div");
+    contentItem.className = "content-item";
+    contentItem.dataset.id = post.id;
+
+    const mediaElement =
+        post.fileType.startsWith("image/")
+            ? `<img src="${post.fileURL}" alt="Post Image"/>`
+            : `<video src="${post.fileURL}" controls></video>`;
+
+    contentItem.innerHTML = `
+        <div class="media">${mediaElement}</div>
+        <p class="caption">${post.caption}</p>
+        <div class="post-actions">
+            <button class="action-btn open-post">Open</button>
+            <button class="action-btn delete-post">Delete</button>
+        </div>
+    `;
+
+    // Event listeners
+    contentItem.querySelector(".open-post").addEventListener("click", () => openPost(post));
+    contentItem.querySelector(".delete-post").addEventListener("click", () => deletePost(post.id, contentItem));
+
+    contentGrid.appendChild(contentItem);
+}
+
+// Open a post in the modal
+function openPost(post) {
+    currentPost = post;
+
+    modalMedia.innerHTML = post.fileType.startsWith("image/")
+        ? `<img src="${post.fileURL}" alt="Post Image"/>`
+        : `<video src="${post.fileURL}" controls></video>`;
+
+    modalCaption.textContent = post.caption;
+    likeCount.textContent = post.likes;
+    commentsSection.innerHTML = post.comments.map((comment) => `<div class="comment">${comment}</div>`).join("");
+
+    const userId = getUserId();
+    if (post.likedBy.includes(userId)) {
+        likeButton.disabled = true;
+        likeButton.textContent = `Liked (${post.likes})`;
+    } else {
+        likeButton.disabled = false;
+        likeButton.textContent = `Like (${post.likes})`;
+    }
+
+    modal.classList.remove("hidden");
+}
+
+// Like a post
+likeButton.addEventListener("click", () => {
+    if (currentPost) {
+        const userId = getUserId();
+
+        if (!currentPost.likedBy.includes(userId)) {
+            currentPost.likes += 1;
+            currentPost.likedBy.push(userId);
+
+            likeButton.disabled = true;
+            likeButton.textContent = `Liked (${currentPost.likes})`;
+            likeCount.textContent = currentPost.likes;
+
+            updatePost(currentPost);
+        }
+    }
+});
+
+// Add a comment
+addCommentButton.addEventListener("click", () => {
+    if (currentPost && commentInput.value) {
+        currentPost.comments.push(commentInput.value);
+
+        const newComment = document.createElement("div");
+        newComment.className = "comment";
+        newComment.textContent = commentInput.value;
+        commentsSection.appendChild(newComment);
+
+        commentInput.value = "";
+
+        updatePost(currentPost);
+    }
+});
+
+// Update a post in localStorage
+function updatePost(updatedPost) {
+    const posts = JSON.parse(localStorage.getItem("posts")) || [];
+    const index = posts.findIndex((post) => post.id === updatedPost.id);
+
+    if (index !== -1) {
+        posts[index] = updatedPost;
+        localStorage.setItem("posts", JSON.stringify(posts));
+    }
+}
+
+// Delete a post
+function deletePost(postId, contentItem) {
+    if (confirm("Are you sure you want to delete this post?")) {
+        let posts = JSON.parse(localStorage.getItem("posts")) || [];
+        posts = posts.filter((post) => post.id !== postId);
+        localStorage.setItem("posts", JSON.stringify(posts));
+
+        contentItem.remove(); // Remove the post from the DOM
+    }
+}
+
+// Close the modal
+closeModal.addEventListener("click", () => {
+    modal.classList.add("hidden");
+});
+
+// Generate a unique user ID
+function getUserId() {
+    let userId = localStorage.getItem("userId");
+    if (!userId) {
+        userId = `user_${Date.now()}`;
+        localStorage.setItem("userId", userId);
+    }
+    return userId;
+}

@@ -26,7 +26,7 @@
             <li><a href="#bikes"><i class="fas fa-bicycle"></i> Bike Sharing</a></li>
             <li><a href="#news"><i class="fas fa-newspaper"></i> Tech News</a></li>
             <li><a href="#chat"><i class="fas fa-comments"></i> Chat</a></li>
-            <li><a href="#content"><i class="fas fa-images"></i> Content</a></li>
+            <li><a href="#content-sharing"><i class="fas fa-images"></i> Content</a></li>
             <li><a href="#tasks"><i class="fas fa-tasks"></i> Tasks</a></li>
         </ul>
     </nav>
@@ -63,21 +63,49 @@
         <div class="news-grid">
             <main>
                 <section id="reddit-news">
-                  <h2>Reddit Tech News</h2>
                   <div class="news-container" id="reddit-container">
                     <!-- Reddit news will be injected here -->
-                  </div>
-                </section>
-                <section id="hindustan-news">
-                  <h2>Hindustan Times Tech News</h2>
-                  <div class="news-container" id="hindustan-container">
-                    <!-- Hindustan news will be injected here -->
                   </div>
                 </section>
               </main>
         </div>
     </section>
 
+    <!-- share -->
+
+    <section id="content-sharing" class="upload-section">
+        <h2>Share Your Content</h2>
+        <form id="uploadForm">
+            <input type="file" id="fileInput" accept="image/*,video/*" required>
+            <textarea id="captionInput" placeholder="Add a caption..." maxlength="100"></textarea>
+            <button type="submit">Upload</button>
+        </form>
+    </section>
+    
+    <section class="content-feed">
+        <h2>Recent Posts</h2>
+        <div class="content-grid" id="contentGrid">
+            <!-- Dynamic posts will appear here -->
+        </div>
+    </section>
+    
+    <!-- Modal for full view -->
+    <div id="postModal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div class="modal-media" id="modalMedia"></div>
+            <p id="modalCaption"></p>
+            <div class="modal-actions">
+                <button id="likeButton" class="action-btn">Like (<span id="likeCount">0</span>)</button>
+                <textarea id="commentInput" placeholder="Add a comment..."></textarea>
+                <button id="addCommentButton" class="action-btn">Add Comment</button>
+            </div>
+            <div class="comments-section" id="commentsSection">
+                <!-- Comments will appear here -->
+            </div>
+        </div>
+    </div>
+    
     <!-- Chatbot -->
     <div class="chatbot">
         <button class="chatbot-toggle">
